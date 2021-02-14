@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-//const mongodb = require('mongodb');
-//const MongoClient = mongodb.MongoClient;
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 
 app.use(bodyParser.json());
 app.use(cors({
@@ -13,8 +13,6 @@ app.use(cors({
 app.listen(8080);
 
 app.post('/binodit', (req, res) => {
-    console.log(req.body);
-    console.log('yo');
-    console.log(req.connection);
+
     res.status(200).send({ message: 'got it' })
 });
