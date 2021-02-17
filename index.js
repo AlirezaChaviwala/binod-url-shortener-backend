@@ -10,7 +10,7 @@ const dbName = 'FirstOrgCluster';
 
 app.use(bodyParser.json());
 app.use(cors({
-    origin: 'https://happy-jones-a6ae4e.netlify.app/',
+    origin: 'https://happy-jones-a6ae4e.netlify.app',
     optionsSuccessStatus: 200 // For legacy browser support
 }));
 app.listen(process.env.PORT || 8080);
