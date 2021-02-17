@@ -13,7 +13,7 @@ app.use(cors({
     origin: 'http://127.0.0.1:5500',
     optionsSuccessStatus: 200 // For legacy browser support
 }));
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
 
 app.post('/binodit', async(req, res) => {
     try {
