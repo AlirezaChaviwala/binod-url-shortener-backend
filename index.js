@@ -6,7 +6,7 @@ const mongodb = require('mongodb');
 const shortid = require('shortid');
 //const mongoose = require('mongoose');
 const MongoClient = mongodb.MongoClient;
-const url = 'mongodb+srv://Alireza:FirstOrgDB@firstorgcluster.kphxs.mongodb.net/FirstOrgCluster?retryWrites=true&w=majority';
+const url = 'mongodb+srv://Alireza:FirstOrgDB@firstorgcluster.kphxs.mongodb.net/FirstOrgDB?retryWrites=true&w=majority';
 const dbName = 'FirstOrgDB';
 
 app.use(bodyParser.json());
