@@ -6,15 +6,11 @@ const mongodb = require('mongodb');
 const shortid = require('shortid');
 //const mongoose = require('mongoose');
 const MongoClient = mongodb.MongoClient;
-const url = process.env.MONGO_URL;
-//'mongodb+srv://Alireza:FirstOrgDB@firstorgcluster.kphxs.mongodb.net/FirstOrgDB?retryWrites=true&w=majority';
+const url = 'mongodb+srv://Alireza:FirstOrgDB@firstorgcluster.kphxs.mongodb.net/FirstOrgDB?retryWrites=true&w=majority';
 const dbName = 'FirstOrgDB';
 
 app.use(bodyParser.json());
-app.use(cors({
-    origin: process.env.DEPLOY_URL,
-    optionsSuccessStatus: 200 // For legacy browser support
-}));
+app.use(cors());
 app.listen(process.env.PORT || 8080);
 
 app.post('/binodit', async(req, res) => {
