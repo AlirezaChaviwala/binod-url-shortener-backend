@@ -3,10 +3,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongodb = require('mongodb');
+const shortid = require('shortid');
 //const mongoose = require('mongoose');
 const MongoClient = mongodb.MongoClient;
 const url = 'mongodb+srv://Alireza:FirstOrgDB@firstorgcluster.kphxs.mongodb.net/FirstOrgCluster?retryWrites=true&w=majority';
-const dbName = 'FirstOrgCluster';
+const dbName = 'FirstOrgDB';
 
 app.use(bodyParser.json());
 app.use(cors({
@@ -17,12 +18,7 @@ app.listen(process.env.PORT || 8080);
 
 app.post('/binodit', async(req, res) => {
     try {
-        var chars = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", , '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-        var code = '';
-        for (let i = 0; i < 7; i++) {
-            var num = Math.round(Math.random() * (chars.length));
-            code += chars[num];
-        }
+
         //Open the Connection
         let connection = await MongoClient.connect(url, { useNewUrlParser: true });
 
@@ -30,7 +26,7 @@ app.post('/binodit', async(req, res) => {
         let db = connection.db(dbName);
 
         //Perform push operation in DB
-        await db.collection("binod").insertOne({ "ip": req.socket.remoteAddress, "long-url": req.body["long-url"], "short-url": code, "count": 0 });
+        await db.collection("binod").insertOne({ "ip": req.socket.remoteAddress, "long-url": req.body["long-url"], "short-url": shortid.generate(), "count": 0 });
 
         //Close connection
         connection.close();
