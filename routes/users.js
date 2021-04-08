@@ -48,6 +48,10 @@ router.post("/signIn", async(req, res, next) => {
         const isMatch = await user.verifyPassword(validCred.password);
         if (!isMatch) throw createError.Unauthorized('Invalid Email Id/Password');
 
+        const refreshTokenCount = await RT.find({ "userId": ObjectId(user.userId) });
+        if (refreshTokenCount.length > 3) await RT.deleteMany({ "userId": ObjectId(user.userId) });
+
+
         let accessToken = await signAccesToken(user.id);
         let refreshToken = await signRefreshToken(user.id);
 

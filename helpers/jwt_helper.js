@@ -53,7 +53,7 @@ module.exports = {
     verifyRefreshToken: (refreshToken) => {
         return new Promise((resolve, reject) => {
             jwt.verify(refreshToken, process.env.REFRESH_TOKEN_KEY, async(err, payload) => {
-                const result = await RT.findOne({ token: refreshToken });
+                const result = await RT.findOne({ "token": refreshToken });
                 if (err && !result) return reject(createError.Unauthorized());
                 const userId = payload.aud;
 
