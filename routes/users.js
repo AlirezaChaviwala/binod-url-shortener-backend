@@ -113,7 +113,7 @@ router.post("/binodit", authenticateAccessToken, async(req, res, next) => {
     try {
         const inpData = await binodLinkAuthSchema.validateAsync(req.body);
 
-        const isDuplicate = await BIN.findOne({ "longUrl": inpData.longUrl });
+        const isDuplicate = await BIN.findOne({ "userId": req.payload.aud, "longUrl": inpData.longUrl });
         if (isDuplicate) throw createError.Conflict(`Short Link for ${inpData.longUrl} already created`);
 
         urlExist(inpData.longUrl, async(err, exists) => {
