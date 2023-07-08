@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const castAggregation = require('mongoose-cast-aggregation');
+
+mongoose.plugin(castAggregation); 
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -15,37 +18,6 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
-})
-
-const refreshTokenSchema = new mongoose.Schema({
-    userId: {
-        type: String,
-        required: true
-    },
-    token: {
-        type: String,
-        required: true
-    },
-    expire_at: { type: Date, default: Date.now, expires: 60 * 60 * 24 * 30 }
-})
-
-const binodLinkSchema = new mongoose.Schema({
-    userId: {
-        type: String,
-        required: true
-    },
-    longUrl: {
-        type: String,
-        required: true
-    },
-    shortUrl: {
-        type: String,
-        required: true
-    },
-    count: {
-        type: Number,
-        required: true
     }
 })
 
@@ -68,9 +40,6 @@ UserSchema.methods.verifyPassword = async function(password) {
     }
 }
 
+const User = mongoose.model('users', UserSchema);
 
-const User = mongoose.model('user', UserSchema);
-const RT = mongoose.model('refreshtoken', refreshTokenSchema);
-const BIN = mongoose.model('binodrecord', binodLinkSchema);
-
-module.exports = { User, RT, BIN };
+module.exports = { User};
