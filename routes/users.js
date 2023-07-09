@@ -5,7 +5,7 @@ require("dotenv").config();
 const urlExist = require("url-exists");
 const createError = require("http-errors");
 const shortid = require("shortid");
-const { User, RT, BIN, RS } = require("../Models/User.model");
+const { User } = require("../models/users");
 const {
   signUpAuthSchema,
   signInAuthSchema,
@@ -21,7 +21,7 @@ const {
   verifyRefreshToken,
 } = require("../helpers/jwt_helper");
 
-const { sendMail } = require("../helpers/mailer");
+// const { sendMail } = require("../helpers/mailer");
 const randomStringGen = require("randomstring");
 
 // GET users listing.

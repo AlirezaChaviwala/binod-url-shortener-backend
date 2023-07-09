@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const castAggregation = require('mongoose-cast-aggregation');
+// const castAggregation = require('mongoose-cast-aggregation');
 
-mongoose.plugin(castAggregation); 
+// mongoose.plugin(castAggregation); 
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -40,6 +40,6 @@ UserSchema.methods.verifyPassword = async function(password) {
     }
 }
 
-const User = mongoose.model('users', UserSchema);
+const User = mongoose.model('Users', UserSchema,'Users');
 
 module.exports = { User};

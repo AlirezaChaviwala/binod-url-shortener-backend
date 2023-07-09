@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const createError = require('http-errors');
-const { RT } = require('../Models/User.model');
+const { RefreshTokens } = require('../models/auth');
+const { refreshTokenMaxAge } = require('../services/constants');
 
 module.exports = {
     signAccesToken: (userId) => {
@@ -33,8 +34,8 @@ module.exports = {
     },
     signRefreshToken: (userId) => {
         return new Promise(async(resolve, reject) => {
-            const result = await RT.findOne({ userId });
-            if (result) await RT.deleteOne({ userId });
+            const result = await RefreshTokens.findOne({ userId });
+            if (result) await RefreshTokens.deleteOne({ userId });
 
             const payload = {}
             const secretKey = process.env.REFRESH_TOKEN_KEY;
@@ -44,7 +45,9 @@ module.exports = {
                     console.log(err.message);
                     return reject(createError.InternalServerError());
                 }
-                const refToken = new RT({ userId, token });
+
+
+                const refToken = new RefreshTokens({ userId, token,expire_at:new Date(Date.now()+refreshTokenMaxAge) });
                 await refToken.save();
                 return resolve(token);
             });
@@ -53,7 +56,7 @@ module.exports = {
     verifyRefreshToken: (refreshToken) => {
         return new Promise((resolve, reject) => {
             jwt.verify(refreshToken, process.env.REFRESH_TOKEN_KEY, async(err, payload) => {
-                const result = await RT.findOne({ "token": refreshToken });
+                const result = await RefreshTokens.findOne({ "token": refreshToken });
                 if (err && !result) return reject(createError.Unauthorized());
                 const userId = payload.aud;
 

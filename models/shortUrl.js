@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const castAggregation = require('mongoose-cast-aggregation');
+// const castAggregation = require('mongoose-cast-aggregation');
 
-mongoose.plugin(castAggregation); 
+// mongoose.plugin(castAggregation); 
 
 const binodLinkSchema = new mongoose.Schema({
     userId: {
@@ -22,6 +22,6 @@ const binodLinkSchema = new mongoose.Schema({
     }
 });
 
-const BIN = mongoose.model('binodrecords', binodLinkSchema);
+const BIN = mongoose.model('ShortUrls', binodLinkSchema,'ShortUrls');
 
 module.exports = { BIN};
